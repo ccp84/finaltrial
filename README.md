@@ -72,12 +72,19 @@ REST_FRAMEWORK = {
 -   Add cors allowed origins
 
 ```python
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://dryrun-react.herokuapp.com"
-]
+# Under middleware
+
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+         os.environ.get('CLIENT_ORIGIN')
+     ]
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+CORS_ALLOW_CREDENTIALS = True
 ```
+
 -   freeze to requirements
 -   Create heroku app
 -   Add config vars
