@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'storages',
     'django.contrib.staticfiles',
     'announcements',
-    'rest_framework'
+    'rest_framework',
     'corsheaders',
 ]
 
