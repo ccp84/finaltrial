@@ -1,13 +1,14 @@
 # finaltrial
 
-## Steps taken to run this project 
+## Steps taken to run this project
 
-* `pip install 'django<4' gunicorn`
-* `django-admin startproject dryrun .`
-* `python manage.py startapp announcements`
-* Add app to settings
+-   `pip install 'django<4' gunicorn`
+-   `django-admin startproject dryrun .`
+-   `python manage.py startapp announcements`
+-   Add app to settings
 
-* Include the URL patterns for app in main project URLS
+-   Include the URL patterns for app in main project URLS
+
 ```python
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,25 +16,29 @@ urlpatterns = [
 ]
 ```
 
-* Create URL file in app
-* Create templates / annoucements folder include index.html as blank file
+-   Create URL file in app
+-   Create templates / annoucements folder include index.html as blank file
 
-* Set templates directory in settings `'DIRS': [BASE_DIR / 'templates/'],`
+-   Set templates directory in settings `'DIRS': [BASE_DIR / 'templates/'],`
 
 ## Models
 
-* Create models
-* Migrate
+-   Create models
+-   Migrate
 
 ## Install REST
 
-* `pip install djangorestframework`
-* Add `rest_framework` to installed apps
+-   `pip install djangorestframework`
+-   Add `rest_framework` to installed apps
 
 ## Create views
+
 ## Create Serializers
+
 ## Set permissions
-* In settings
+
+-   In settings
+
 ```python
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -42,24 +47,39 @@ REST_FRAMEWORK = {
     ]
 }
 ```
+
 ## Install Coverage
-* `pip install coverage`
-* `coverage run manage.py test`
-* `coverage html` - open htmlcov in browser
-* Write tests
+
+-   `pip install coverage`
+-   `coverage run manage.py test`
+-   `coverage html` - open htmlcov in browser
+-   Write tests
 
 ## Deploy to heroku
+
 `pip3 install dj_database_url==0.5.0 psycopg2`
-* Setup static link to AWS
-`pip install Pillow django-storages boto3` - add storages to installed apps
-* Add elephant database
-* Create env
-* Create procfile
-* Add media, static and templates folders at root level
-* Add allowed hosts to settings
-* migrate
-* freeze to requirements
-* Create heroku app
-* Add config vars
-* Commit and push
-* Deploy to heroku
+
+-   Setup static link to AWS
+    `pip install Pillow django-storages boto3` - add storages to installed apps
+-   Add elephant database
+-   Create env
+-   Create procfile
+-   Add media, static and templates folders at root level
+-   Add allowed hosts to settings
+-   migrate
+-   install django cors headers `pip install django-cors-headers` add `corsheaders` to installed apps
+-   Add middleware above common middleware in settings `'corsheaders.middleware.CorsMiddleware',`
+-   Add cors allowed origins
+
+```python
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://dryrun-react.herokuapp.com"
+]
+```
+-   freeze to requirements
+-   Create heroku app
+-   Add config vars
+-   Commit and push
+-   Deploy to heroku
