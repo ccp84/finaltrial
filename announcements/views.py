@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import SAFE_METHODS, BasePermission
+from rest_framework import permissions
 from .models import Announcements
 from .serializers import AnnouncementSerializer
 
@@ -21,6 +22,7 @@ class OwnerWritePermission(BasePermission):
 
 
 class AnnouncementList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Announcements.objects.all()
     serializer_class = AnnouncementSerializer
 
