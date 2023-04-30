@@ -90,3 +90,21 @@ CORS_ALLOW_CREDENTIALS = True
 -   Add config vars
 -   Commit and push
 -   Deploy to heroku
+
+## Create Custom User Model
+
+-   Create users app
+-   Add to installed apps
+-   Build model
+-   Register model in settings `AUTH_USER_MODEL = 'users.CustomUser'`
+-   Use `from django.conf import settings` as import and `settings.AUTH_USER_MODEL` instead of USER for model
+-   Migrate
+
+## Active JWT Authentication
+
+[Instructions here](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+
+## Install allauth
+
+[instructions here](https://dj-rest-auth.readthedocs.io/en/latest/installation.html)
+`pip install dj-rest-auth`
