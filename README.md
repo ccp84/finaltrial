@@ -103,6 +103,7 @@ CORS_ALLOW_CREDENTIALS = True
 ## Active JWT Authentication
 
 [Instructions here](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
+Add in token blacklisting for logouts on refresh
 
 ## Install allauth
 
