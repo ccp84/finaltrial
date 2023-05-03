@@ -22,9 +22,15 @@ class OwnerWritePermission(BasePermission):
 
 
 class AnnouncementList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Announcements.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = AnnouncementSerializer
+
+    def get_queryset(self):
+        """
+        Override the standard query set and filter
+        """
+        user = self.request.user
+        return Announcements.objects.filter(author=user)
 
 
 class AnnouncementDetail(generics.RetrieveUpdateDestroyAPIView, OwnerWritePermission):
