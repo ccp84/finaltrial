@@ -42,13 +42,7 @@ class MyList(generics.ListCreateAPIView):
 class MyDetail(generics.RetrieveUpdateDestroyAPIView, OwnerWritePermission):
     permission_classes = [OwnerWritePermission]
     serializer_class = AnnouncementSerializer
-
-    def get_queryset(self):
-        """
-            Override the standard query set and filter
-            """
-        user = self.request.user
-        return Announcements.objects.filter(author=user)
+    queryset = Announcements.objects.all()
 
 
 class AnnouncementFilter(generics.ListAPIView):
