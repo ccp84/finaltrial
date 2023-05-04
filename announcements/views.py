@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import SAFE_METHODS, BasePermission
-from rest_framework import permissions
+from rest_framework import permissions, filters
 from .models import Announcements
 from .serializers import AnnouncementSerializer
 
@@ -22,18 +22,38 @@ class OwnerWritePermission(BasePermission):
 
 
 class AnnouncementList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = AnnouncementSerializer
+    queryset = Announcements.objects.all()
+
+
+class MyList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = AnnouncementSerializer
 
     def get_queryset(self):
         """
-        Override the standard query set and filter
-        """
+            Override the standard query set and filter
+            """
         user = self.request.user
         return Announcements.objects.filter(author=user)
 
 
-class AnnouncementDetail(generics.RetrieveUpdateDestroyAPIView, OwnerWritePermission):
+class MyDetail(generics.RetrieveUpdateDestroyAPIView, OwnerWritePermission):
     permission_classes = [OwnerWritePermission]
-    queryset = Announcements.objects.all()
     serializer_class = AnnouncementSerializer
+
+    def get_queryset(self):
+        """
+            Override the standard query set and filter
+            """
+        user = self.request.user
+        return Announcements.objects.filter(author=user)
+
+
+class AnnouncementFilter(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = AnnouncementSerializer
+    queryset = Announcements.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['content']

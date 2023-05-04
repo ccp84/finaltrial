@@ -109,3 +109,34 @@ Add in token blacklisting for logouts on refresh
 
 [instructions here](https://dj-rest-auth.readthedocs.io/en/latest/installation.html)
 `pip install dj-rest-auth`
+
+## Filtering
+
+https://django-filter.readthedocs.io/en/stable/index.html
+
+filter by param passed in from react URL
+
+```python
+class AnnouncementList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = AnnouncementSerializer
+
+    def get_queryset(self):
+        """
+        Override the standard query set and filter
+        """
+        user = self.request.user
+        return Announcements.objects.filter(author=user)
+```
+
+filter by word search based on field
+
+````python
+class AnnouncementFilter(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = AnnouncementSerializer
+    queryset = Announcements.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['content']
+    ```
+````
